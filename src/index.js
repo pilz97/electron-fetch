@@ -20,7 +20,11 @@ import FetchError from './fetch-error'
 let electron
 // istanbul ignore else
 if (process.versions.electron) {
-  electron = require('electron')
+  electron = require('electron');
+  if (!!electron && !electron.net) {
+    console.log('electorn.net undefined');
+    electron.net = require('@electron/remote');
+  }
 }
 
 const isReady = electron && electron.app && !electron.app.isReady()
